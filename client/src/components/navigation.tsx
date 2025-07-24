@@ -18,8 +18,12 @@ export default function Navigation() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <User className="text-white text-lg" size={20} />
+            <div className="w-10 h-10 rounded-lg overflow-hidden">
+              <img 
+                src="/attached_assets/IMG_5708_1753340477741.PNG" 
+                alt="Muhammad Sohaib Jameel"
+                className="w-full h-full object-cover"
+              />
             </div>
             <span className="text-xl font-bold text-dark">Muhammad Sohaib</span>
           </div>
