@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { Smartphone, Calendar, MapPin, Star, ExternalLink } from "lucide-react";
+import { Smartphone, Calendar, MapPin, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SiGoogleplay, SiAppstore } from "react-icons/si";
+import type { Project } from "@shared/schema";
 
 export default function ProjectsSection() {
-  const { data: projects, isLoading } = useQuery({
+  const { data: projects, isLoading } = useQuery<Project[]>({
     queryKey: ["/api/projects"],
   });
 
@@ -72,7 +74,7 @@ export default function ProjectsSection() {
                 </div>
                 
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies?.slice(0, 3).map((tech) => (
+                  {project.technologies?.map((tech) => (
                     <span 
                       key={tech} 
                       className="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full"
@@ -80,17 +82,35 @@ export default function ProjectsSection() {
                       {tech}
                     </span>
                   ))}
-                  {project.technologies && project.technologies.length > 3 && (
-                    <span className="bg-gray-200 text-gray-600 text-xs px-2 py-1 rounded-full">
-                      +{project.technologies.length - 3} more
-                    </span>
-                  )}
                 </div>
                 
-                <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-white">
-                  <ExternalLink className="mr-2" size={16} />
-                  View Details
-                </Button>
+                <div className="flex gap-2">
+                  {project.playStoreLink && (
+                    <Button 
+                      asChild
+                      variant="outline" 
+                      className="flex-1 border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
+                    >
+                      <a href={project.playStoreLink} target="_blank" rel="noopener noreferrer">
+                        <SiGoogleplay className="mr-2" size={16} />
+                        Play Store
+                      </a>
+                    </Button>
+                  )}
+                  
+                  {project.appStoreLink && (
+                    <Button 
+                      asChild
+                      variant="outline" 
+                      className="flex-1 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                    >
+                      <a href={project.appStoreLink} target="_blank" rel="noopener noreferrer">
+                        <SiAppstore className="mr-2" size={16} />
+                        App Store
+                      </a>
+                    </Button>
+                  )}
+                </div>
               </div>
             </div>
           ))}

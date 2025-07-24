@@ -138,7 +138,9 @@ export class MemStorage implements IStorage {
           "Successfully onboarded 2,000+ users within the first 3 months",
           "Enhanced user engagement by 35%"
         ],
-        technologies: ["Flutter", "Dart", "Firebase", "REST APIs", "Live Tracking"]
+        technologies: ["Flutter", "Dart", "Firebase", "REST APIs", "Live Tracking"],
+        playStoreLink: "https://play.google.com/store/apps/details?id=com.racingeyenew.re&hl=en",
+        appStoreLink: "https://apps.apple.com/pk/app/racing-eye/id1493939462"
       },
       {
         name: "ICD Happiness Club",
@@ -150,7 +152,9 @@ export class MemStorage implements IStorage {
           "Boosted user retention through real-time chat and offers",
           "Surpassed 10,000 active users in the first year post-launch"
         ],
-        technologies: ["Flutter", "Dart", "Payment Gateways", "Real-time Chat", "E-commerce"]
+        technologies: ["Flutter", "Dart", "Payment Gateways", "Real-time Chat", "E-commerce"],
+        playStoreLink: "https://play.google.com/store/apps/details?id=com.icd.hc&hl=en",
+        appStoreLink: "https://apps.apple.com/ae/app/icd-happiness-club/id1250013777"
       },
       {
         name: "Clinic On App",
@@ -161,7 +165,9 @@ export class MemStorage implements IStorage {
           "Streamlined doctor-patient appointment flow, reducing booking time by 40%",
           "Increased app downloads by 5,000+"
         ],
-        technologies: ["Flutter", "Dart", "Healthcare APIs", "Appointment Booking", "SQLite"]
+        technologies: ["Flutter", "Dart", "Healthcare APIs", "Appointment Booking", "SQLite"],
+        playStoreLink: "https://play.google.com/store/apps/details?id=com.clinicOnApp&hl=en",
+        appStoreLink: "https://apps.apple.com/pk/app/cliniconapp/id6475239790"
       }
     ];
 
@@ -218,21 +224,28 @@ export class MemStorage implements IStorage {
   }
 
   // Synchronous helpers for initialization
-  private createExperienceSync(insertExperience: InsertExperience): Experience {
+  private createExperienceSync(insertExperience: any): Experience {
     const id = this.currentExperienceId++;
     const experience: Experience = { 
       ...insertExperience, 
-      id
+      id,
+      achievements: insertExperience.achievements || null,
+      endDate: insertExperience.endDate || null
     };
     this.experiences.set(id, experience);
     return experience;
   }
 
-  private createProjectSync(insertProject: InsertProject): Project {
+  private createProjectSync(insertProject: any): Project {
     const id = this.currentProjectId++;
     const project: Project = { 
       ...insertProject, 
-      id
+      id,
+      country: insertProject.country || null,
+      achievements: insertProject.achievements || null,
+      technologies: insertProject.technologies || null,
+      playStoreLink: insertProject.playStoreLink || null,
+      appStoreLink: insertProject.appStoreLink || null
     };
     this.projects.set(id, project);
     return project;
@@ -263,9 +276,14 @@ export class MemStorage implements IStorage {
     return this.personalInfo;
   }
 
-  async updatePersonalInfo(info: InsertPersonalInfo): Promise<PersonalInfo> {
-    this.personalInfo = { ...info, id: 1 };
-    return this.personalInfo;
+  async updatePersonalInfo(info: any): Promise<PersonalInfo> {
+    this.personalInfo = { 
+      ...info, 
+      id: 1,
+      linkedin: info.linkedin || null,
+      github: info.github || null
+    };
+    return this.personalInfo!;
   }
 
   async getExperiences(): Promise<Experience[]> {

@@ -33,6 +33,8 @@ export const projects = pgTable("projects", {
   description: text("description").notNull(),
   achievements: text("achievements").array(),
   technologies: text("technologies").array(),
+  playStoreLink: text("play_store_link"),
+  appStoreLink: text("app_store_link"),
 });
 
 export const skills = pgTable("skills", {
