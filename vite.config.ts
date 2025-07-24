@@ -16,7 +16,7 @@ export default defineConfig({
         ]
       : []),
   ],
-  base: '/NotepadAI-Portfolio/',
+  base: '/notepadai-portfolio/',
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),
